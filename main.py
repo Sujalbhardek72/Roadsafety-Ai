@@ -43,13 +43,13 @@ async def detect(file: UploadFile = File(...)):
 
     try:
         # Run YOLO detection
-       results = model.predict(
-    source=temp_path,
-    conf=0.25,
-    imgsz=320,
-    device="cpu",
-    verbose=False
-)
+            results = model.predict(
+            source=temp_path,
+            conf=0.25,
+            imgsz=320,
+            device="cpu",
+            verbose=False
+        )
 
         result = results[0]
 
