@@ -33,7 +33,6 @@ def home():
 @app.post("/detect")
 async def detect(file: UploadFile = File(...)):
 
-    # Save uploaded image temporarily
     suffix = os.path.splitext(file.filename)[1] or ".jpg"
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp:
@@ -42,8 +41,7 @@ async def detect(file: UploadFile = File(...)):
         temp_path = temp.name
 
     try:
-        # Run YOLO detection
-            results = model.predict(
+        results = model.predict(
             source=temp_path,
             conf=0.25,
             imgsz=320,
@@ -65,7 +63,6 @@ async def detect(file: UploadFile = File(...)):
             if confidences else 0
         )
 
-        # Basic severity calculation
         if pothole_count >= 5:
             severity = "High"
         elif pothole_count >= 2:
